@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -28,5 +29,8 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/users/create',[UserController::class, 'create'])->name('users.create');
+Route::post('/users',[UserController::class,'store'])->name('users.store');
 Route::get('/users',[UserController::class,'index'])->name('users.index');
-Route::get('/users/{user}',[UserController::class,'show'])->name('users.show');
+Route::get('/users/{user}',[UserController::class, 'show'])->name('users.show');
+
