@@ -50,4 +50,33 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('sucess','Usuario creado con exito');
     }
+
+    public function edit(User $user)
+    {
+        return view('users.edit',[ 'user' => $user]);
+    }
+    public function update(Request $request,User $user)
+    {
+        if($request->hasFile('image')) {
+            //Get current image from database
+            $photo = $user->photo; 
+
+            //Save the new image to the directory
+            $filename = $request->image->store('/','avatars');
+
+            //Delete the current image to the directory
+            if(Storage::disk('avatars')->exists($photo)) {
+                Storage::disk('avatars')->delete($photo);
+            }
+
+            //Update new image in the database
+            $user->photo = $filename;
+        }
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->route('users.edit',$user->id)->with('sucess','Usuario actualizado con exito');
+    }
 }

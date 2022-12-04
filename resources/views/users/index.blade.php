@@ -5,7 +5,7 @@
             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                 <h1 class="title1">Listado de Usuarios</h1>
                 <div>
-                    <a class="btn btn-blue" href="{{ route('users.create') }}">
+                    <a class="btn btn-secondary" href="{{ route('users.create') }}">
                         Crear Usuario
                     </a>
                 </div>
@@ -14,17 +14,24 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Foto</th>
                             <th>Nombre</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                        <tr>
+                        <tr class="align-middle">
                             <td>{{ $user->id }}</td>
+                            <td>
+                                @empty(!$user->photo)
+                                    <img src="{{$user->photo_url}}" class="m-0 inline-block" width="20"">
+                                @endempty
+                            </td>
                             <td>{{ $user->name }}</td>
                             <td>
-                                <a class="btn btn-blue" href="{{ route('users.show',$user)}}">Ver</a>
+                                <a class="btn btn-primary" href="{{ route('users.show',$user)}}">Ver</a>
+                                <a class="btn btn-info" href="{{ route('users.edit',$user)}}">Editar</a>
                             </td>
                         </tr>
                         @endforeach
