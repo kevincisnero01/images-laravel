@@ -4,7 +4,14 @@
         <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
             <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                 <h1 class="title1">Listado de Usuarios</h1>
-                <div>
+                
+                @if (session('status'))
+                    <div class="py-2 px-4 mb-4 border-2 border-green-500 rounded bg-green-300 font-bold" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
+                <div class="text-right">
                     <a class="btn btn-secondary" href="{{ route('users.create') }}">
                         Crear Usuario
                     </a>
@@ -42,6 +49,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $users->links() }}
             </div>
         </div>
     </div>

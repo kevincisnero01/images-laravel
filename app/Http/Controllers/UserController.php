@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {   
         return view('users.index',[
-            'users' => User::all()
+            'users' => User::latest()->paginate(10)
         ]);
     }
 
@@ -39,6 +39,8 @@ class UserController extends Controller
         if($request->hasFile('image')) {
             $filename = $request->image->store('/','avatars');
             //"V3hbrQrg31bO1b7MwXGGrRktdQpq9GOUXbWsCr7y.jpg"
+        }else{
+            $filename = null;
         }
 
         $user = User::create([
@@ -48,7 +50,7 @@ class UserController extends Controller
             'photo' => $filename
         ]);
 
-        return redirect()->route('users.index')->with('sucess','Usuario creado con exito');
+        return redirect()->route('users.index')->with('status','Usuario creado con exito');
     }
 
     public function edit(User $user)
@@ -77,7 +79,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return redirect()->route('users.edit',$user->id)->with('sucess','Usuario actualizado con exito');
+        return redirect()->route('users.edit',$user->id)->with('status','Usuario actualizado con exito');
     }
 
     public function destroy(User $user)
@@ -93,6 +95,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('sucess','Usuario eliminado con exito');
+        return redirect()->route('users.index')->with('status','Usuario eliminado con exito');
     }
 }

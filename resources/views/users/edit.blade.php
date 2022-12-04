@@ -5,6 +5,13 @@
             
             <div class="w-2/4 sm:max-w-2xl p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose">
                 <h1 class="text-2xl uppercase text-center mb-0.5">Editar Usuario</h1>
+
+                @if (session('status'))
+                    <div class="py-2 px-4 mb-4 border-2 border-green-500 rounded bg-green-300 font-bold" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
                 <form action="{{ route('users.update', $user->id) }}" method="Post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
@@ -21,7 +28,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <label for="image">Imagen</label>
+                        <label for="image">Imagen</label><br>
                         @if(empty($user->photo))
                             <span class="block p-1 w-full rounded border-2 border-orange-400 bg-orange-200 text-center">Usuario sin foto de perfil</span>
                         @else
