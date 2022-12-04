@@ -7,7 +7,7 @@
                 <h1>Detalle de Usuario</h1>
                 <b>Nombre:</b> {{ $user->name}}<br>
                 <b>Correo:</b> {{ $user->email}}
-
+                <img src="{{ $user->photo_url }}" title="{{$user->photo}}">
             </div>
         </div>
     </div>

@@ -53,6 +53,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'avatars' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user-avatars'),
+            'url' => env('APP_URL').'/fotos-usuarios',
+            'visibility' => 'public'
+        ],
     ],
 
     /*
@@ -68,6 +74,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('fotos-usuarios') => storage_path('app/user-avatars'),
     ],
 
 ];
