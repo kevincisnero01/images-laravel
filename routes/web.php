@@ -29,6 +29,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::delete('/users/{user}',[UserController::class, 'destroy'])->name('users.destroy');
 Route::put('/users/{user}',[UserController::class, 'update'])->name('users.update');
 Route::get('/users/edit/{user}',[UserController::class, 'edit'])->name('users.edit');
 Route::get('/users/create',[UserController::class, 'create'])->name('users.create');

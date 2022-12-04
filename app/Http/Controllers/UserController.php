@@ -72,11 +72,27 @@ class UserController extends Controller
             //Update new image in the database
             $user->photo = $filename;
         }
-        
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
 
         return redirect()->route('users.edit',$user->id)->with('sucess','Usuario actualizado con exito');
+    }
+
+    public function destroy(User $user)
+    {
+        if($user->photo){
+            //Get current image from database
+            $photo = $user->photo; 
+            //Delete the current image to the directory
+            if(Storage::disk('avatars')->exists($photo)) {
+                Storage::disk('avatars')->delete($photo);
+            }
+        }
+
+        $user->delete();
+
+        return redirect()->route('users.index')->with('sucess','Usuario eliminado con exito');
     }
 }

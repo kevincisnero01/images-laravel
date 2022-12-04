@@ -32,6 +32,11 @@
                             <td>
                                 <a class="btn btn-primary" href="{{ route('users.show',$user)}}">Ver</a>
                                 <a class="btn btn-info" href="{{ route('users.edit',$user)}}">Editar</a>
+                                <form action="{{ route('users.destroy', $user->id) }}" method="post" class="inline-block" onclick="return confirm('Estas seguro de elminar el recurso')">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn bg-red-600 hover:bg-red-500" >Eliminar</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
